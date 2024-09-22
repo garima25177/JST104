@@ -1,0 +1,43 @@
+const products = [
+    { name: "Laptop", category: "Electronics", price: 1200, quantity: 10, available: true },
+    { name: "Chair", category: "Furniture", price: 100, quantity: 20, available: true },
+    { name: "Shirt", category: "Clothing", price: 30, quantity: 50, available: false },
+    { name: "Book", category: "Books", price: 20, quantity: 100, available: true }
+];
+
+// Filter available products
+const filteredProducts = products.filter(product => product.available);
+console.log("Filtered Products:", filteredProducts);
+
+// Sort products by price
+const sortedProductsByPrice = [...products].sort((a, b) => a.price - b.price);
+console.log("Sorted products by price:", sortedProductsByPrice);
+
+// Calculate total value for each product (price * quantity)
+const productWithTotalValue = products.map(product => ({ ...product, totalValues: product.price * product.quantity }));
+console.log("Products with total value:", productWithTotalValue);
+
+// Calculate total number of products
+const totalProducts = products.length;
+
+// Calculate the total value of inventory
+const totalValue = productWithTotalValue.reduce((sum, product) => sum + product.totalValues, 0);
+
+// Calculate average price
+const avgPrice = totalValue / totalProducts;
+
+// Calculate the distribution of products by category
+const categoryDistribution = products.reduce((acc, product) => {
+    acc[product.category] = (acc[product.category] || 0) + 1;
+    return acc;
+}, {});
+
+// Inventory report
+const inventoryReport = {
+    totalProducts,
+    totalValue,
+    avgPrice,
+    categoryDistribution
+};
+
+console.log("Inventory Report:", inventoryReport);
