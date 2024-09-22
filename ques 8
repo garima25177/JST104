@@ -1,0 +1,74 @@
+Array.prototype.customSlice = function(start, end) {
+    let startInd = (start >= 0) ? start : Math.max(this.length + start, 0);
+    let endInd = (end !== undefined && end >= 0) ? end : Math.max(this.length + end, 0);
+    let slicedArr = [];
+    for (let i = startInd; i < endInd; i++) {
+        if (i < this.length) { // Check to avoid out of bounds
+            slicedArr.push(this[i]);
+        }
+    }
+    return slicedArr; // Fixed typo: changed sliceArr to slicedArr
+};
+
+Array.prototype.customSplice = function(start, deleteCnt, ...items) {
+    let deletedItems = this.customSlice(start, start + deleteCnt);
+    let startArr = this.customSlice(start + deleteCnt, this.length);
+    
+    this.length = 0; // Clear the array
+    this.push(...startArr); // Corrected: push startArr instead of splicedArr
+    
+    // Add new items to the modified array
+    this.push(...items);
+    
+    return deletedItems;
+};
+
+Array.prototype.customPush = function(...items) {
+    for (let item of items) {
+        this[this.length] = item;
+    }
+    return this.length;
+};
+
+Array.prototype.customPop = function() {
+    if (this.length === 0) return undefined; // Return undefined if array is empty
+    let lastItem = this[this.length - 1];
+    this.length--;
+    return lastItem;
+};
+
+Array.prototype.customMap = function(callback) {
+    let mappedArr = [];
+    for (let i = 0; i < this.length; i++) {
+        mappedArr.push(callback(this[i], i, this));
+    }
+    return mappedArr;
+};
+
+Array.prototype.customFilter = function(predicate) { // Corrected parameter name
+    let filteredArray = []; // Fixed typo: changed filerededArray to filteredArray
+    for (let i = 0; i < this.length; i++) {
+        if (predicate(this[i], i, this)) {
+            filteredArray.push(this[i]); // Fixed typo: changed callback to this[i]
+        }
+    }
+    return filteredArray;
+};
+
+Array.prototype.customReduce = function(reducer, initialVal) {
+    let accu = initialVal !== undefined ? initialVal : this[0];
+    let startInd = initialVal !== undefined ? 0 : 1;
+    for (let i = startInd; i < this.length; i++) {
+        accu = reducer(accu, this[i], i, this);
+    }
+    return accu;
+};
+
+const arr = [1, 2, 3, 4, 5];
+
+console.log(arr.customSlice(1, 3)); // Output: [2, 3]
+console.log(arr.customSlice(2)); // Output: [3, 4, 5]
+console.log(arr.customPush(6, 7)); // Output: 7
+console.log(arr.customPop()); // Output: 7
+console.log(arr.customMap(x => x * 2)); // Output: [2, 4, 6, 8, 10]
+console.log(arr.customFilter(x => x % 2 === 0)); // Output: [2, 4]
