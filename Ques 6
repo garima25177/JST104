@@ -1,0 +1,56 @@
+function doubleNumbers(){
+    let input = prompt("Enter number separated by space");
+    let arr = input.split("");
+    let doubleArr = arr.map(function(num){
+        return num* 2;
+    });
+    console.log(doubleArr);
+}
+doubleNumbers();
+
+function mapArray(){
+    let input = prompt("Enter numbers separate by space")
+    if(!input){
+        console.log("Please enter the numbers");
+        return;
+    }
+    let arr = input.split("").map(Number);
+    if(arr.some(isNAN)){
+        console.log("Invalid input");
+        return;
+    }
+    let doubleArr = arr.map(num => num * 2);
+    console.log(doubleArr);
+}
+mapArray();
+
+function filterArray(){
+    let input = prompt("Enter number separated by space");
+    if(!input){
+    console.log("please enter the numbers");
+    return;
+    }
+    let arr = input.split("").map(Number);
+    if(arr.some(isNaN)){
+        console.log("Invalid input");
+        return;
+    }
+    let evenNumbers = arr.filter(num => num%2 === 0);
+    console.log(evenNumbers);
+}
+filterArray();
+function reduceArray(){
+    let input = prompt("enter the number by space")
+    if(!input){
+        console.log("Please enter the numbers");
+        return;
+    }
+    let arr = input.split(";").map(Number);
+    if(arr.some(isNaN)){
+        console.log("Invalid input");
+        return;
+    }
+    let sum = arr.reduce((acc,curr) => acc + curr,0);
+    console.log(sum);
+}
+reduceArray();
