@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Slideshow</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="slideshow-container">
+        <img id="slideshow-image" src="" alt="Movie Image">
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.slideshow-container {
+    width: 80%;
+    max-width: 600px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #000;
+}
+
+#slideshow-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+// Array of movie image URLs
+const movieImages = [
+    'https://via.placeholder.com/600x400?text=Movie+1',
+    'https://via.placeholder.com/600x400?text=Movie+2',
+    'https://via.placeholder.com/600x400?text=Movie+3',
+    'https://via.placeholder.com/600x400?text=Movie+4',
+    'https://via.placeholder.com/600x400?text=Movie+5'
+];
+
+// Selecting the image element
+const slideshowImage = document.getElementById('slideshow-image');
+
+// Setting up the index to track current image
+let currentIndex = 0;
+
+// Function to update the image source
+function updateSlideshow() {
+    // Set the image src to the current index
+    slideshowImage.src = movieImages[currentIndex];
+    
+    // Increment the index, loop back to 0 if the end is reached
+    currentIndex = (currentIndex + 1) % movieImages.length;
+}
+
+// Set the first image as the default image
+updateSlideshow();
+
+// Set an interval to change the image every 2000ms (2 seconds)
+setInterval(updateSlideshow, 2000);
